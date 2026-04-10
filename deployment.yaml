@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: guia-bruno
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: guia-bruno
+  template:
+    metadata:
+      labels:
+        app: guia-bruno
+    spec:
+      containers:
+        - name: guia-bruno
+          image: realbrunopinheiro/guia-bruno:latest
+          ports:
+            - containerPort: 3000
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 5
